@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEII Internship Finder</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init("3kQLNBFzxzCw3lREt"); // Replace with your EmailJS public key
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #0056b3;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #003d82;
+        }
+
+        #search-page {
+            display: none;
+        }
+
+        #links {
+            list-style: none;
+            padding: 0;
+        }
+
+        #links li {
+            margin-bottom: 5px;
+        }
+
+        #links li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #links li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="welcome-page">
+	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+
+        <h1>Welcome to the GEII Internship Finder</h1>
+        <form id="user-info-form">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first-name" required>
+
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last-name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="study-type">Field of Study:</label>
+            <input type="text" id="study-type" name="study-type" placeholder="e.g., DUT GEII" required>
+
+            <button type="submit">Continue</button>
+        </form>
+    </div>
+
+    <div class="container" id="choice-page" style="display: none;">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+        <h1>How do you want to look for an internship ?</h1>
+        <button id="domain-btn">Search by Subject </button>
+        <button id="company-btn">Search by Company</button>
+    </div>
+
+    <div class="container" id="search-page">
+	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+        <h2>Find Your Internship</h2>
+        <label for="country">Select a Country:</label>
+        <select id="country" name="country">
+            <option value="">-- Select Country --</option>
+            <option value="United States">United States</option>
+            <option value="Canada">Canada</option>
+            <option value="Jamaica">Jamaica</option>
+            <option value="Philippines">Philippines</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Malta">Malta</option>
+            <option value="Australia">Australia</option>
+            <option value="New Zealand">New Zealand</option>
+            <option value="South Africa">South Africa</option>
+            <option value="Nigeria">Nigeria</option>
+            <option value="Kenya">Kenya</option>
+            <option value="Ghana">Ghana</option>
+            <option value="India">India</option>
+            <option value="Singapore">Singapore</option>
+        </select>
+
+        <label for="subject">Select a Subject:</label>
+        <select id="subject" name="subject">
+            <option value="">-- Select Subject --</option>
+            <option value="Automation">Automation</option>
+            <option value="Robotics">Robotics</option>
+            <option value="Networking">Networking</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Energy management">Energy Management</option>
+            <option value="Computer science">Computer Science</option>
+            <option value="Telecommunications">Telecommunications</option>
+            <option value="Signal processing">Signal Processing</option>
+            <option value="Industrial computing">Industrial Computing</option>
+        </select>
+
+        <button onclick="findInternships()">Find Internships</button>
+
+        <h2>Useful Links:</h2>
+        <ul id="links"></ul>
+		<button onclick="goBack()">Go Back</button>
+    </div>
+
+    <div class="container" id="company-page" style="display: none;">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+        <h2>Company Recruitment Websites</h2>
+        <ul>
+            <li><a href="https://www.glassdoor.com" target="_blank">Glassdoor</a></li>
+            <li><a href="https://www.indeed.com" target="_blank">Indeed</a></li>
+            <li><a href="https://www.linkedin.com/jobs" target="_blank">LinkedIn Jobs</a></li>
+        </ul>
+        <button onclick="goBack()">Go Back</button>
+    </div>
+
+    <script>
+        document.getElementById('user-info-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+			
+			const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
+            const studyType = document.getElementById('study-type').value;
+
+            alert(`Thank you, ${firstName} ${lastName}! A welcome email has been sent to ${email}.`);
+
+            emailjs.send("service_u1dpkvm", "template_kl7gmof", {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                studyType: studyType
+            }).then(
+                function(response) {
+                    console.log("Email successfully sent!", response);
+                },
+                function(error) {
+                    console.log("Email failed to send.", error);
+                }
+
+            );
+            document.getElementById('welcome-page').style.display = 'none';
+            document.getElementById('choice-page').style.display = 'block';
+        });
+
+        document.getElementById('domain-btn').addEventListener('click', function () {
+            document.getElementById('choice-page').style.display = 'none';
+            document.getElementById('search-page').style.display = 'block';
+        });
+
+        document.getElementById('company-btn').addEventListener('click', function () {
+            document.getElementById('choice-page').style.display = 'none';
+            document.getElementById('company-page').style.display = 'block';
+        });
+		
+		function findInternships() {
+            const country = document.getElementById('country').value;
+            const subject = document.getElementById('subject').value;
+            const linksList = document.getElementById('links');
+
+            linksList.innerHTML = '';
+
+            if (!country || !subject) {
+                alert("Please select both a country and a subject.");
+                return;
+            }
+
+            const linkedInUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(subject)}&location=${encodeURIComponent(country)}`;
+            const jungleUrl = `https://www.welcometothejungle.com/en/jobs?keywords=internship%20${encodeURIComponent(subject + " " + country)}`;
+			const IndeedUrl = `https://fr.indeed.com/?from=mobRdr&utm_source=%2Fm%2F&utm_medium=redir&utm_campaign=dt{encodeURIComponent(subject)}&location=${encodeURIComponent(country)}`;
+
+            addLink("LinkedIn", linkedInUrl);
+            addLink("Welcome to the Jungle", jungleUrl);
+			addLink("Indeed", IndeedUrl);
+
+            function addLink(platform, url) {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = url;
+                link.textContent = `Find ${subject} internships in ${country} on ${platform}`;
+                link.target = "_blank";
+                listItem.appendChild(link);
+                linksList.appendChild(listItem);
+            }
+        }
+		
+		function goBack() {
+        document.getElementById('choice-page').style.display = 'block';
+        document.getElementById('search-page').style.display = 'none';
+        document.getElementById('company-page').style.display = 'none';
+    }
+    </script>
+</body>
+</html>
