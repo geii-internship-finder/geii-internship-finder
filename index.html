@@ -10,26 +10,47 @@
         emailjs.init("3kQLNBFzxzCw3lREt"); // Replace with your EmailJS public key
     </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;;
+        position: relative;
+    }
 
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 120%;
+        height: 120%;
+        background-image: url('./IMG_9937.jpg');
+        background-size: cover;
+        background-position: center;
+        filter: blur(10px);
+        z-index: -1; /* Ensures it stays in the background */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .container {
+        align-items: center;
+        width: 100vh;
+        margin: 20px auto;
+        background-color: #ffffff65;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
         h1, h2 {
             text-align: center;
-            color: #0056b3;
+            color: #64003d;
         }
 
         form {
@@ -51,7 +72,7 @@
         }
 
         button {
-            background-color: #0056b3;
+            background-color: #64003d;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -62,7 +83,7 @@
         }
 
         button:hover {
-            background-color: #003d82;
+            background-color: rgb(110, 72, 103);
         }
 
         #search-page {
@@ -79,7 +100,7 @@
         }
 
         #links li a {
-            color: #007bff;
+            color: #64003d;
             text-decoration: none;
         }
 
@@ -91,7 +112,9 @@
 
 <body>
     <div class="container" id="welcome-page">
-	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+    <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+        <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
+    </a></a>
 
         <h1>Welcome to the GEII Internship Finder</h1>
         <form id="user-info-form">
@@ -112,14 +135,18 @@
     </div>
 
     <div class="container" id="choice-page" style="display: none;">
-        <img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+            <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
+        </a></a>
         <h1>How do you want to look for an internship ?</h1>
         <button id="domain-btn">Search by Subject </button>
         <button id="company-btn">Search by Company</button>
     </div>
 
     <div class="container" id="search-page">
-	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+            <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
+        </a></a>
         <h2>Find Your Internship</h2>
         <label for="country">Select a Country:</label>
         <select id="country" name="country">
@@ -163,8 +190,9 @@
     </div>
 
     <div class="container" id="company-page" style="display: none;">
-	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
-        <h2>Find Your company</h2>
+        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+            <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
+        </a></a>
         <label for="country">Select a Country:</label>
         <select id="country" name="country">
             <option value="">-- Select Country --</option>
