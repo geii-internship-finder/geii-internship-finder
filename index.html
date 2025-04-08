@@ -262,8 +262,8 @@
             }
 
             const linkedInUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(subject)}&location=${encodeURIComponent(country)}`;
-            const jungleUrl = `https://www.welcometothejungle.com/en/jobs?keywords=internship%20${encodeURIComponent(subject + " " + country)}`;
-			const IndeedUrl = `https://fr.indeed.com/jobs?q=${encodeURIComponent(subject)}&l=${encodeURIComponent(country)}`;
+            const jungleUrl = `https://www.welcometothejungle.com/en/jobs?query=${encodeURIComponent(subject + " internship")}&aroundQuery=${encodeURIComponent(country)}&page=1`;
+		const IndeedUrl = `https://fr.indeed.com/jobs?q=${encodeURIComponent(subject)}&l=${encodeURIComponent(country)}`;
 
             addLink("LinkedIn", linkedInUrl);
             addLink("Welcome to the Jungle", jungleUrl);
