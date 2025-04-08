@@ -112,10 +112,9 @@
 
 <body>
     <div class="container" id="welcome-page">
-    <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-        <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-    </a></a>
-
+	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+	</a></a>
         <h1>Welcome to the GEII Internship Finder</h1>
         <form id="user-info-form">
             <label for="first-name">First Name:</label>
@@ -135,18 +134,18 @@
     </div>
 
     <div class="container" id="choice-page" style="display: none;">
-        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-            <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-        </a></a>
-        <h1>How do you want to look for an internship ?</h1>
+	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+	</a></a>
+        <h1>Hello ! Choose your subject or your company for your internship.</h1>
         <button id="domain-btn">Search by Subject </button>
         <button id="company-btn">Search by Company</button>
     </div>
 
     <div class="container" id="search-page">
-        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-            <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-        </a></a>
+	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+	</a></a>
         <h2>Find Your Internship</h2>
         <label for="country">Select a Country:</label>
         <select id="country" name="country">
@@ -190,9 +189,10 @@
     </div>
 
     <div class="container" id="company-page" style="display: none;">
-        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-            <img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-        </a></a>
+	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+	<img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width=10% height=10%>
+	</a></a>
+        <h2>Find Your company</h2>
         <label for="country">Select a Country:</label>
         <select id="country" name="country">
             <option value="">-- Select Country --</option>
@@ -262,7 +262,7 @@
             }
 
             const linkedInUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(subject)}&location=${encodeURIComponent(country)}`;
-            const jungleUrl = `https://www.welcometothejungle.com/en/jobs?query=${encodeURIComponent(subject + " internship")}&aroundQuery=${encodeURIComponent(country)}&page=1`;
+			const jungleUrl = `https://www.welcometothejungle.com/en/jobs?query=${encodeURIComponent(subject + " internship")}&aroundQuery=${encodeURIComponent(country)}&page=1`;
 			const IndeedUrl = `https://fr.indeed.com/jobs?q=${encodeURIComponent(subject)}&l=${encodeURIComponent(country)}`;
 
             addLink("LinkedIn", linkedInUrl);
@@ -353,6 +353,8 @@
         document.getElementById('search-page').style.display = 'none';
         document.getElementById('company-page').style.display = 'none';
     }
+	
+	
     </script>
 </body>
 </html>
