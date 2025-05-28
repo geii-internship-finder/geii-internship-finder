@@ -1,76 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEII Internship Finder</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        emailjs.init("3kQLNBFzxzCw3lREt"); // Replace with your EmailJS public key
+        emailjs.init("3kQLNBFzxzCw3lREt"); // Remplace par ta clé publique EmailJS
     </script>
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        color: #000000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;;
-        position: relative;
-    }
-
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 120%;
-        height: 120%;
-        background-image: url('./IMG_9937.jpg');
-        background-size: cover;
-        background-position: center;
-        filter: blur(10px);
-        z-index: -1; /* Ensures it stays in the background */
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    .container {
-        align-items: center;
-        width: 100vh;
-        margin: 20px auto;
-        background-color: #ffffff65;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 120%;
+            background-image: url('./IMG_9937.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            z-index: -1;
+            background-repeat: no-repeat;
+        }
+        .container {
+            align-items: center;
+            width: 100vh;
+            margin: 20px auto;
+            background-color: #ffffff65;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
         h1, h2 {
             text-align: center;
             color: #64003d;
         }
-
         form {
             margin-bottom: 20px;
         }
-
         label {
             display: block;
             margin-bottom: 5px;
         }
-
         input, select {
             width: 100%;
-            padding: 8px;
+            padding-left: 10px;
+            padding-top: 8px;
+            padding-bottom: 8px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
         }
-
         button {
             background-color: #64003d;
             color: white;
@@ -81,145 +75,375 @@
             display: block;
             margin: 20px auto;
         }
-
         button:hover {
             background-color: rgb(110, 72, 103);
         }
-
-        #search-page {
+        #search-page,
+        #company-page,
+        #choice-page {
             display: none;
         }
-
-        #links {
+        #links, #company-links {
             list-style: none;
             padding: 0;
         }
-
-        #links li {
+        #links li, #company-links li {
             margin-bottom: 5px;
         }
-
-        #links li a {
+        #links li a, #company-links li a {
             color: #64003d;
             text-decoration: none;
         }
-
-        #links li a:hover {
+        #links li a:hover, #company-links li a:hover {
             text-decoration: underline;
+        }
+        #lang-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
         }
     </style>
 </head>
-
 <body>
+    <!-- Language Selector -->
+    <div id="lang-menu">
+        <select id="language-select">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+
     <div class="container" id="welcome-page">
-	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-	<img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-	</a></a>
-        <h1>Welcome to the GEII Internship Finder</h1>
+        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+            <img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width="10%" height="10%">
+        </a>
+        <h1 id="welcome-title">Welcome to the GEII Internship Finder</h1>
         <form id="user-info-form">
-            <label for="first-name">First Name:</label>
+            <label for="first-name" id="first-name-label">First Name:</label>
             <input type="text" id="first-name" name="first-name" required>
 
-            <label for="last-name">Last Name:</label>
+            <label for="last-name" id="last-name-label">Last Name:</label>
             <input type="text" id="last-name" name="last-name" required>
 
-            <label for="email">Email:</label>
+            <label for="email" id="email-label">Email:</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="study-type">Field of Study:</label>
+            <label for="study-type" id="study-type-label">Field of Study:</label>
             <input type="text" id="study-type" name="study-type" placeholder="e.g., DUT GEII" required>
 
-            <button type="submit">Continue</button>
+            <button type="submit" id="continue-btn">Continue</button>
         </form>
     </div>
 
-    <div class="container" id="choice-page" style="display: none;">
-	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-	<img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-	</a></a>
-        <h1>Hello ! Choose your subject or your company for your internship.</h1>
-        <button id="domain-btn">Search by Subject </button>
+    <div class="container" id="choice-page">
+        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+            <img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width="10%" height="10%">
+        </a>
+        <h1 id="choice-title">Hello! Choose your subject or your company for your internship.</h1>
+        <button id="domain-btn">Search by Subject</button>
         <button id="company-btn">Search by Company</button>
     </div>
 
     <div class="container" id="search-page">
-	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-	<img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-	</a></a>
-        <h2>Find Your Internship</h2>
-        <label for="country">Select a Country:</label>
-        <select id="country" name="country">
-            <option value="">-- Select Country --</option>
-            <option value="United States">United States</option>
-            <option value="Canada">Canada</option>
-            <option value="Jamaica">Jamaica</option>
-            <option value="Philippines">Philippines</option>
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="Ireland">Ireland</option>
-            <option value="Malta">Malta</option>
-            <option value="Australia">Australia</option>
-            <option value="New Zealand">New Zealand</option>
-            <option value="South Africa">South Africa</option>
-            <option value="Nigeria">Nigeria</option>
-            <option value="Kenya">Kenya</option>
-            <option value="Ghana">Ghana</option>
-            <option value="India">India</option>
-            <option value="Singapore">Singapore</option>
-        </select>
+        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+            <img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width="10%" height="10%">
+        </a>
+        <h2 id="search-title">Find Your Internship</h2>
+        <label for="country" id="country-label">Select a Country:</label>
+        <select id="country" name="country"></select>
 
-        <label for="subject">Select a Subject:</label>
-        <select id="subject" name="subject">
-            <option value="">-- Select Subject --</option>
-            <option value="Automation">Automation</option>
-            <option value="Robotics">Robotics</option>
-            <option value="Networking">Networking</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Energy management">Energy Management</option>
-            <option value="Computer science">Computer Science</option>
-            <option value="Telecommunications">Telecommunications</option>
-            <option value="Signal processing">Signal Processing</option>
-            <option value="Industrial computing">Industrial Computing</option>
-        </select>
+        <label for="subject" id="subject-label">Select a Subject:</label>
+        <select id="subject" name="subject"></select>
 
-        <button onclick="findInternships()">Find Internships</button>
+        <button id="find-internships-btn" onclick="findInternships()">Find Internships</button>
 
-        <h2>Useful Links:</h2>
+        <h2 id="useful-links-title">Useful Links:</h2>
         <ul id="links"></ul>
-		<button onclick="goBack()">Go Back</button>
+        <button id="go-back-btn-1" onclick="goBack()">Go Back</button>
     </div>
 
-    <div class="container" id="company-page" style="display: none;">
-	<a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
-	<img src="./IUT-SCEAUX-v-rvb.png" alt="IUT de Cachan Logo" width=10% height=10%>
-	</a></a>
-        <h2>Find Your company</h2>
-        <label for="country">Select a Country:</label>
-        <select id="country" name="country">
-            <option value="">-- Select Country --</option>
-            <option value="United States">United States</option>
-            <option value="Canada">Canada</option>
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="Australia">Australia</option>
-            <option value="Nigeria">Nigeria</option>
-            <option value="India">India</option>
-            <option value="Singapore">Singapore</option>
-        </select>
-
-        <h2>Useful Links:</h2>
-        <ul id="links"></ul>
-		<button onclick="goBack()">Go Back</button>
+    <div class="container" id="company-page">
+        <a href="https://profge2.iut-cachan.universite-paris-saclay.fr/" target="_blank">
+            <img src="https://pplx-res.cloudinary.com/image/upload/v1742119568/user_uploads/hbfjFnJLnuDEMfE/OIP.jpg" alt="IUT de Cachan Logo" width="10%" height="10%">
+        </a>
+        <h2 id="company-title">Find Your company</h2>
+        <label for="company-country" id="company-country-label">Select a Country:</label>
+        <select id="company-country" name="company-country"></select>
+        <button id="find-company-btn">Find Company</button>
+        <h2 id="useful-links-title-2">Useful Links:</h2>
+        <ul id="company-links"></ul>
+        <button id="go-back-btn-2" onclick="goBack()">Go Back</button>
     </div>
 
     <script>
+        // Traductions des pays
+        const countryNames = {
+            en: {
+                "Australia": "Australia",
+                "Canada": "Canada",
+                "France": "France",
+                "Ghana": "Ghana",
+                "India": "India",
+                "Ireland": "Ireland",
+                "Jamaica": "Jamaica",
+                "Kenya": "Kenya",
+                "Malta": "Malta",
+                "New Zealand": "New Zealand",
+                "Nigeria": "Nigeria",
+                "Philippines": "Philippines",
+                "Singapore": "Singapore",
+                "South Africa": "South Africa",
+                "United Kingdom": "United Kingdom",
+                "United States": "United States"
+            },
+            fr: {
+                "Australia": "Australie",
+                "Canada": "Canada",
+                "France": "France",
+                "Ghana": "Ghana",
+                "India": "Inde",
+                "Ireland": "Irlande",
+                "Jamaica": "Jamaïque",
+                "Kenya": "Kenya",
+                "Malta": "Malte",
+                "New Zealand": "Nouvelle-Zélande",
+                "Nigeria": "Nigéria",
+                "Philippines": "Philippines",
+                "Singapore": "Singapour",
+                "South Africa": "Afrique du Sud",
+                "United Kingdom": "Royaume-Uni",
+                "United States": "États-Unis"
+            }
+        };
+
+        // Traductions des domaines
+        const subjectOptions = [
+            "Automation", "Computer science", "Electrical Maintenance", "Electronics", "Embedded Systems",
+            "Energy Conversion", "Energy Efficiency", "Energy management", "Industrial computing", "Industrial Robotics",
+            "Industry 4.0", "Intelligent Systems", "Mechatronic Systems", "Medical Electronics", "Networking",
+            "Power Generation", "Process Automation", "Robotics", "Signal processing", "Smart Building", "Smart Grids",
+            "Telecommunications"
+        ];
+        const subjectNames = {
+            en: {
+                "Automation": "Automation",
+                "Computer science": "Computer Science",
+                "Electrical Maintenance": "Electrical Maintenance",
+                "Electronics": "Electronics",
+                "Embedded Systems": "Embedded Systems",
+                "Energy Conversion": "Energy Conversion",
+                "Energy Efficiency": "Energy Efficiency",
+                "Energy management": "Energy Management",
+                "Industrial computing": "Industrial Computing",
+                "Industrial Robotics": "Industrial Robotics",
+                "Industry 4.0": "Industry 4.0",
+                "Intelligent Systems": "Intelligent Systems",
+                "Mechatronic Systems": "Mechatronic Systems",
+                "Medical Electronics": "Medical Electronics",
+                "Networking": "Networking",
+                "Power Generation": "Power Generation",
+                "Process Automation": "Process Automation",
+                "Robotics": "Robotics",
+                "Signal processing": "Signal Processing",
+                "Smart Building": "Smart Building",
+                "Smart Grids": "Smart Grids",
+                "Telecommunications": "Telecommunications"
+            },
+            fr: {
+                "Automation": "Automatisation",
+                "Computer science": "Informatique",
+                "Electrical Maintenance": "Maintenance électrique",
+                "Electronics": "Électronique",
+                "Embedded Systems": "Systèmes embarqués",
+                "Energy Conversion": "Conversion d'énergie",
+                "Energy Efficiency": "Efficacité énergétique",
+                "Energy management": "Gestion de l'énergie",
+                "Industrial computing": "Informatique industrielle",
+                "Industrial Robotics": "Robotique industrielle",
+                "Industry 4.0": "Industrie 4.0",
+                "Intelligent Systems": "Systèmes intelligents",
+                "Mechatronic Systems": "Systèmes mécatroniques",
+                "Medical Electronics": "Électronique médicale",
+                "Networking": "Réseaux",
+                "Power Generation": "Production d'énergie",
+                "Process Automation": "Automatisation des procédés",
+                "Robotics": "Robotique",
+                "Signal processing": "Traitement du signal",
+                "Smart Building": "Bâtiment intelligent",
+                "Smart Grids": "Réseaux intelligents",
+                "Telecommunications": "Télécommunications"
+            }
+        };
+
+        // Ordre d'affichage des pays (pour les deux menus)
+        const countryOrder = [
+            "Australia", "Canada", "France", "Ghana", "India", "Ireland", "Jamaica", "Kenya",
+            "Malta", "New Zealand", "Nigeria", "Philippines", "Singapore", "South Africa",
+            "United Kingdom", "United States"
+        ];
+
+        // Pays disponibles pour le menu entreprise
+        const companyCountries = [
+            "Australia", "Canada", "France", "India", "Nigeria", "Singapore", "United Kingdom", "United States"
+        ];
+
+        // Fonction pour générer les listes déroulantes pays et domaines dans la bonne langue et triés
+        function renderCountrySelects(lang) {
+            // Tri pays
+            const sortedCountryOrder = countryOrder.slice().sort((a, b) =>
+                countryNames[lang][a].localeCompare(countryNames[lang][b], lang)
+            );
+            // Stage
+            const countrySelect = document.getElementById("country");
+            countrySelect.innerHTML = `<option value="">${lang === "fr" ? "-- Sélectionnez un pays --" : "-- Select Country --"}</option>`;
+            sortedCountryOrder.forEach(code => {
+                countrySelect.innerHTML += `<option value="${code}">${countryNames[lang][code]}</option>`;
+            });
+            // Tri pays entreprise
+            const sortedCompanyCountries = companyCountries.slice().sort((a, b) =>
+                countryNames[lang][a].localeCompare(countryNames[lang][b], lang)
+            );
+            const companyCountrySelect = document.getElementById("company-country");
+            companyCountrySelect.innerHTML = `<option value="">${lang === "fr" ? "-- Sélectionnez un pays --" : "-- Select Country --"}</option>`;
+            sortedCompanyCountries.forEach(code => {
+                companyCountrySelect.innerHTML += `<option value="${code}">${countryNames[lang][code]}</option>`;
+            });
+            // Tri domaines
+            const sortedSubjectOptions = subjectOptions.slice().sort((a, b) =>
+                subjectNames[lang][a].localeCompare(subjectNames[lang][b], lang)
+            );
+            const subjectSelect = document.getElementById("subject");
+            subjectSelect.innerHTML = `<option value="">${lang === "fr" ? "-- Sélectionnez un domaine --" : "-- Select Subject --"}</option>`;
+            sortedSubjectOptions.forEach(code => {
+                subjectSelect.innerHTML += `<option value="${code}">${subjectNames[lang][code]}</option>`;
+            });
+        }
+
+        // Réinitialise les menus et liens de la page stage
+        function resetSearchMenus() {
+            document.getElementById("country").selectedIndex = 0;
+            document.getElementById("subject").selectedIndex = 0;
+            document.getElementById("links").innerHTML = "";
+        }
+        // Réinitialise les menus et liens de la page entreprise
+        function resetCompanyMenus() {
+            document.getElementById("company-country").selectedIndex = 0;
+            document.getElementById("company-links").innerHTML = "";
+        }
+
+        // Traductions générales
+        const translations = {
+            en: {
+                "welcome-title": "Welcome to the GEII Internship Finder",
+                "first-name-label": "First Name:",
+                "last-name-label": "Last Name:",
+                "email-label": "Email:",
+                "study-type-label": "Field of Study:",
+                "study-type-placeholder": "e.g., DUT GEII",
+                "continue-btn": "Continue",
+                "choice-title": "Hello! Choose your subject or your company for your internship.",
+                "domain-btn": "Search by Subject",
+                "company-btn": "Search by Company",
+                "search-title": "Find Your Internship",
+                "country-label": "Select a Country:",
+                "subject-label": "Select a Subject:",
+                "find-internships-btn": "Find Internships",
+                "useful-links-title": "Useful Links:",
+                "go-back-btn": "Go Back",
+                "company-title": "Find Your company",
+                "company-country-label": "Select a Country:",
+                "find-company-btn": "Find Company",
+                "useful-links-title-2": "Useful Links:",
+                "alert-missing": "Please select both a country and a subject.",
+                "alert-thankyou": "Thank you, {firstName} {lastName}! A welcome email has been sent to {email}.",
+                "find-internships-link": "Find {subject} internships in {country} on {platform}"
+            },
+            fr: {
+                "welcome-title": "Bienvenue sur le GEII Internship Finder",
+                "first-name-label": "Prénom :",
+                "last-name-label": "Nom :",
+                "email-label": "E-mail :",
+                "study-type-label": "Filière d'études :",
+                "study-type-placeholder": "ex : BUT GEII",
+                "continue-btn": "Continuer",
+                "choice-title": "Bonjour ! Choisissez votre sujet ou votre entreprise pour votre stage.",
+                "domain-btn": "Recherche par sujet",
+                "company-btn": "Recherche par entreprise",
+                "search-title": "Trouvez votre stage",
+                "country-label": "Sélectionnez un pays :",
+                "subject-label": "Sélectionnez un domaine :",
+                "find-internships-btn": "Trouver un stage",
+                "useful-links-title": "Liens utiles :",
+                "go-back-btn": "Retour",
+                "company-title": "Trouvez votre entreprise",
+                "company-country-label": "Sélectionnez un pays :",
+                "find-company-btn": "Trouver une entreprise",
+                "useful-links-title-2": "Liens utiles :",
+                "alert-missing": "Veuillez sélectionner un pays et un domaine.",
+                "alert-thankyou": "Merci, {firstName} {lastName} ! Un e-mail de bienvenue a été envoyé à {email}.",
+                "find-internships-link": "Voir les stages {subject} en {country} sur {platform}"
+            }
+        };
+
+        let currentLang = "en";
+        function setLang(lang) {
+            currentLang = lang;
+            document.getElementById("welcome-title").textContent = translations[lang]["welcome-title"];
+            document.getElementById("first-name-label").textContent = translations[lang]["first-name-label"];
+            document.getElementById("last-name-label").textContent = translations[lang]["last-name-label"];
+            document.getElementById("email-label").textContent = translations[lang]["email-label"];
+            document.getElementById("study-type-label").textContent = translations[lang]["study-type-label"];
+            document.getElementById("study-type").placeholder = translations[lang]["study-type-placeholder"];
+            document.getElementById("continue-btn").textContent = translations[lang]["continue-btn"];
+            document.getElementById("choice-title").textContent = translations[lang]["choice-title"];
+            document.getElementById("domain-btn").textContent = translations[lang]["domain-btn"];
+            document.getElementById("company-btn").textContent = translations[lang]["company-btn"];
+            document.getElementById("search-title").textContent = translations[lang]["search-title"];
+            document.getElementById("country-label").textContent = translations[lang]["country-label"];
+            document.getElementById("subject-label").textContent = translations[lang]["subject-label"];
+            document.getElementById("find-internships-btn").textContent = translations[lang]["find-internships-btn"];
+            document.getElementById("useful-links-title").textContent = translations[lang]["useful-links-title"];
+            document.getElementById("go-back-btn-1").textContent = translations[lang]["go-back-btn"];
+            document.getElementById("company-title").textContent = translations[lang]["company-title"];
+            document.getElementById("company-country-label").textContent = translations[lang]["company-country-label"];
+            document.getElementById("find-company-btn").textContent = translations[lang]["find-company-btn"];
+            document.getElementById("useful-links-title-2").textContent = translations[lang]["useful-links-title-2"];
+            document.getElementById("go-back-btn-2").textContent = translations[lang]["go-back-btn"];
+            renderCountrySelects(lang);
+
+            // Réinitialiser menus et liens si sur la page stage ou entreprise
+            if (document.getElementById('search-page').style.display === 'block') {
+                resetSearchMenus();
+            }
+            if (document.getElementById('company-page').style.display === 'block') {
+                resetCompanyMenus();
+            }
+        }
+
+        document.getElementById("language-select").addEventListener("change", function () {
+            setLang(this.value);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            setLang(currentLang);
+        });
+
+        // PAGE LOGIC
         document.getElementById('user-info-form').addEventListener('submit', function (event) {
             event.preventDefault();
-			
-			const firstName = document.getElementById('first-name').value;
+
+            const firstName = document.getElementById('first-name').value;
             const lastName = document.getElementById('last-name').value;
             const email = document.getElementById('email').value;
             const studyType = document.getElementById('study-type').value;
 
-            alert(`Thank you, ${firstName} ${lastName}! A welcome email has been sent to ${email}.`);
+            alert(
+                translations[currentLang]["alert-thankyou"]
+                    .replace("{firstName}", firstName)
+                    .replace("{lastName}", lastName)
+                    .replace("{email}", email)
+            );
 
             emailjs.send("service_u1dpkvm", "template_kl7gmof", {
                 firstName: firstName,
@@ -227,13 +451,12 @@
                 email: email,
                 studyType: studyType
             }).then(
-                function(response) {
+                function (response) {
                     console.log("Email successfully sent!", response);
                 },
-                function(error) {
+                function (error) {
                     console.log("Email failed to send.", error);
                 }
-
             );
             document.getElementById('welcome-page').style.display = 'none';
             document.getElementById('choice-page').style.display = 'block';
@@ -242,14 +465,22 @@
         document.getElementById('domain-btn').addEventListener('click', function () {
             document.getElementById('choice-page').style.display = 'none';
             document.getElementById('search-page').style.display = 'block';
+            resetSearchMenus();
         });
 
         document.getElementById('company-btn').addEventListener('click', function () {
             document.getElementById('choice-page').style.display = 'none';
             document.getElementById('company-page').style.display = 'block';
+            resetCompanyMenus();
         });
-		
-		function findInternships() {
+
+        function goBack() {
+            document.getElementById('search-page').style.display = 'none';
+            document.getElementById('company-page').style.display = 'none';
+            document.getElementById('choice-page').style.display = 'block';
+        }
+
+        function findInternships() {
             const country = document.getElementById('country').value;
             const subject = document.getElementById('subject').value;
             const linksList = document.getElementById('links');
@@ -257,104 +488,120 @@
             linksList.innerHTML = '';
 
             if (!country || !subject) {
-                alert("Please select both a country and a subject.");
+                alert(translations[currentLang]["alert-missing"]);
                 return;
             }
 
-            const linkedInUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(subject)}&location=${encodeURIComponent(country)}`;
-			const jungleUrl = `https://www.welcometothejungle.com/en/jobs?query=${encodeURIComponent(subject + " internship")}&aroundQuery=${encodeURIComponent(country)}&page=1`;
-			const IndeedUrl = `https://fr.indeed.com/jobs?q=${encodeURIComponent(subject)}&l=${encodeURIComponent(country)}`;
+            // Affichage du pays et du domaine dans la bonne langue
+            const countryLabel = countryNames[currentLang][country] || country;
+            const subjectLabel = subjectNames[currentLang][subject] || subject;
+
+            const linkedInUrl = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(subjectLabel)}&location=${encodeURIComponent(countryLabel)}`;
+            const jungleUrl = `https://www.welcometothejungle.com/en/jobs?query=${encodeURIComponent(subjectLabel + " internship")}&aroundQuery=${encodeURIComponent(countryLabel)}&page=1`;
+            const IndeedUrl = `https://fr.indeed.com/jobs?q=${encodeURIComponent(subjectLabel)}&l=${encodeURIComponent(countryLabel)}`;
 
             addLink("LinkedIn", linkedInUrl);
             addLink("Welcome to the Jungle", jungleUrl);
-			addLink("Indeed", IndeedUrl);
+            addLink("Indeed", IndeedUrl);
 
             function addLink(platform, url) {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = url;
-                link.textContent = `Find ${subject} internships in ${country} on ${platform}`;
+                link.textContent = translations[currentLang]["find-internships-link"]
+                    .replace("{subject}", subjectLabel)
+                    .replace("{country}", countryLabel)
+                    .replace("{platform}", platform);
                 link.target = "_blank";
                 listItem.appendChild(link);
                 linksList.appendChild(listItem);
             }
         }
 
-			    document.addEventListener("DOMContentLoaded", function () {
-        const companyPage = document.getElementById('company-page');
-        const countrySelect = companyPage.querySelector('#country');
-        const linksList = companyPage.querySelector('#links');
-        const findCompanyBtn = document.createElement("button");
-        findCompanyBtn.textContent = "Find Company";
-        findCompanyBtn.onclick = displayCompanyLinks;
-        countrySelect.insertAdjacentElement("afterend", findCompanyBtn);
+        // Company Page Logic
+        const companies = {
+            "Australia": [
+                { "name": "Telstra", "url": "https://careers.telstra.com.au/" },
+                { "name": "Woodside Energy", "url": "https://www.woodside.com/careers" },
+                { "name": "Cochlear Limited", "url": "https://careers.cochlear.com/" },
+                { "name": "Worley", "url": "https://www.worley.com/careers" },
+                { "name": "GHD", "url": "https://www.ghd.com/en/careers.aspx" },
+                { "name": "SMEC", "url": "https://www.smec.com/careers" }
+            ],
+            "Canada": [
+                { "name": "Hydro-Québec", "url": "https://www.hydroquebec.com/careers/" },
+                { "name": "Bombardier Inc.", "url": "https://bombardier.com/en/careers" },
+                { "name": "IBM Canada", "url": "https://www.ibm.com/ca-en/employment/" },
+                { "name": "Black & McDonald", "url": "https://www.blackandmcdonald.com/careers/" },
+                { "name": "Ozz Electric", "url": "https://ozzelectric.com/careers/" },
+                { "name": "Plan Group", "url": "https://www.plan-group.com/careers/" }
+            ],
+            "France": [
+                { "name": "Schneider Electric", "url": "https://www.se.com/fr/fr/about-us/careers/overview.jsp" },
+                { "name": "Legrand", "url": "https://www.legrandgroup.com/fr/carrieres" },
+                { "name": "Enedis", "url": "https://www.enedis.fr/recrute" },
+                { "name": "Thales", "url": "https://www.thalesgroup.com/fr/carrieres" },
+                { "name": "Alstom", "url": "https://www.alstom.com/fr/carrieres" },
+                { "name": "Nexans", "url": "https://www.nexans.fr/fr/careers.html" }
+            ],
+            "India": [
+                { "name": "Infosys", "url": "https://www.infosys.com/careers" },
+                { "name": "Tata Consultancy Services (TCS)", "url": "https://www.tcs.com/careers" },
+                { "name": "Bharat Heavy Electricals Limited (BHEL)", "url": "https://www.bhel.com/careers" },
+                { "name": "Havells India Ltd", "url": "https://www.havells.com/en/about/careers.html" },
+                { "name": "NTPC Limited", "url": "https://www.ntpc.co.in/en/careers" },
+                { "name": "Siemens India", "url": "https://new.siemens.com/in/en/company/jobs.html" }
+            ],
+            "Nigeria": [
+                { "name": "Shell Nigeria", "url": "https://www.shell.com.ng/careers.html" },
+                { "name": "Nestlé Nigeria", "url": "https://www.nestle-cwa.com/jobs" },
+                { "name": "Olam Group", "url": "https://www.olamgroup.com/careers.html" },
+                { "name": "ABB Nigeria", "url": "https://new.abb.com/ng/careers" },
+                { "name": "Siemens Nigeria", "url": "https://new.siemens.com/ng/en/company/jobs.html" },
+                { "name": "Mikano International", "url": "https://www.mikano-intl.com/careers" }
+            ],
+            "Singapore": [
+                { "name": "ST Engineering", "url": "https://www.stengg.com/en/careers/" },
+                { "name": "Micron Technology", "url": "https://www.micron.com/careers" },
+                { "name": "Siemens Singapore", "url": "https://www.siemens.com/sg/en/company/jobs.html" },
+                { "name": "SP Group", "url": "https://www.spgroup.com.sg/careers" },
+                { "name": "Sembcorp Industries", "url": "https://www.sembcorp.com/en/careers" },
+                { "name": "Panasonic Asia", "url": "https://www.panasonic.com/sg/corporate/careers.html" }
+            ],
+            "United Kingdom": [
+                { "name": "BAE Systems", "url": "https://www.baesystems.com/en/careers" },
+                { "name": "Siemens UK", "url": "https://www.siemens.co.uk/en/careers.html" },
+                { "name": "BT Group", "url": "https://www.bt.com/careers" },
+                { "name": "Rolls-Royce", "url": "https://careers.rolls-royce.com/" },
+                { "name": "John Wright Electrical & Mechanical Services", "url": "https://www.johnwrightelectrical.co.uk/" },
+                { "name": "Arup", "url": "https://www.arup.com/careers" }
+            ],
+            "United States": [
+                { "name": "General Electric (GE)", "url": "https://www.ge.com/careers" },
+                { "name": "Intel Corporation", "url": "https://www.intel.com/content/www/us/en/jobs/jobs-at-intel.html" },
+                { "name": "Lockheed Martin", "url": "https://www.lockheedmartinjobs.com/" },
+                { "name": "Emerson Electric", "url": "https://www.emerson.com/en-us/careers" },
+                { "name": "Rockwell Automation", "url": "https://www.rockwellautomation.com/en-us/company/careers.html" },
+                { "name": "Texas Instruments", "url": "https://careers.ti.com/" }
+            ]
+        };
 
-        function displayCompanyLinks() {
-            const country = countrySelect.value;
+        document.getElementById('find-company-btn').addEventListener('click', function () {
+            const country = document.getElementById('company-country').value;
+            const linksList = document.getElementById('company-links');
             linksList.innerHTML = '';
+            if (!country || !companies[country]) return;
 
-            const companies = {
-                "United States": [
-                    { name: "General Electric (GE)", url: "https://www.ge.com/careers" },
-                    { name: "Intel Corporation", url: "https://www.intel.com/content/www/us/en/jobs/jobs-at-intel.html" },
-                    { name: "Lockheed Martin", url: "https://www.lockheedmartinjobs.com/" }
-                ],
-                "Canada": [
-                    { name: "Hydro-Québec", url: "https://www.hydroquebec.com/careers/" },
-                    { name: "Bombardier Inc.", url: "https://bombardier.com/en/careers" },
-                    { name: "IBM Canada", url: "https://www.ibm.com/ca-en/employment/" }
-                ],
-                "United Kingdom": [
-                    { name: "BAE Systems", url: "https://www.baesystems.com/en/careers" },
-                    { name: "Siemens UK", url: "https://www.siemens.co.uk/en/careers.html" },
-                    { name: "BT Group", url: "https://www.bt.com/careers" }
-                ],
-                "Australia": [
-                    { name: "Telstra", url: "https://careers.telstra.com.au/" },
-                    { name: "Woodside Energy", url: "https://www.woodside.com/careers" },
-                    { name: "Cochlear Limited", url: "https://careers.cochlear.com/" }
-                ],
-                "India": [
-                    { name: "Infosys", url: "https://www.infosys.com/careers" },
-                    { name: "Tata Consultancy Services (TCS)", url: "https://www.tcs.com/careers" },
-                    { name: "Bharat Heavy Electricals Limited (BHEL)", url: "https://www.bhel.com/careers" }
-                ],
-                "Nigeria": [
-                    { name: "Shell Nigeria", url: "https://www.shell.com.ng/careers.html" },
-                    { name: "Nestlé Nigeria", url: "https://www.nestle-cwa.com/jobs" },
-                    { name: "Olam Group", url: "https://www.olamgroup.com/careers.html" }
-                ],
-                "Singapore": [
-                    { name: "ST Engineering", url: "https://www.stengg.com/en/careers/" },
-                    { name: "Micron Technology", url: "https://www.micron.com/careers" },
-                    { name: "Siemens Singapore", url: "https://www.siemens.com/sg/en/company/jobs.html" }
-                ]
-            };
-
-            if (companies[country]) {
-                companies[country].forEach(company => {
-                    const listItem = document.createElement('li');
-                    const link = document.createElement('a');
-                    link.href = company.url;
-                    link.textContent = company.name;
-                    link.target = "_blank";
-                    listItem.appendChild(link);
-                    linksList.appendChild(listItem);
-                });
-            } else {
-                linksList.innerHTML = "<li>No companies available for this country.</li>";
-            }
-        }
-    });
-
-
-		function goBack() {
-        document.getElementById('choice-page').style.display = 'block';
-        document.getElementById('search-page').style.display = 'none';
-        document.getElementById('company-page').style.display = 'none';
-    }
-	
-	
+            companies[country].forEach(company => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = company.url;
+                a.textContent = company.name;
+                a.target = "_blank";
+                li.appendChild(a);
+                linksList.appendChild(li);
+            });
+        });
     </script>
 </body>
 </html>
